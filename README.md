@@ -1,12 +1,17 @@
-# React + Vite
+# CTD-KIWI To-Do List App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple To-Do App built using React + Vite for the CTD-Kiwi React v3 class.
 
-Currently, two official plugins are available:
+## Requirements
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[Node.js](https://nodejs.org/en)
 
-## Expanding the ESLint configuration
+## Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clone the repository
+   1. `git clone https://github.com/pleaseHelpImDumb/ctd-kiwi-todo-list`
+   2. `cd ctd-kiwi-todo-list`
+2. Install dependencies
+   1. `npm install`
+3. Start development server
+   1. `npm run dev`
