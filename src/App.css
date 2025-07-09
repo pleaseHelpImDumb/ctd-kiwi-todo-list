@@ -1,0 +1,13 @@
+html,
+input,
+button {
+  font-family: "Comic Relief", sans-serif;
+}
+
+body {
+  background-color: rgb(255, 215, 194);
+}
+
+h1 {
+  color: rgb(102, 76, 67);
+}
