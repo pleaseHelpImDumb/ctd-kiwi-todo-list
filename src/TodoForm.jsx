@@ -3,9 +3,9 @@ import "./TodoForm.css";
 function TodoForm() {
   return (
     <form action="">
-      <label htmlFor="todoTitle">To-Do!</label>
+      <label htmlFor="todoTitle">Todo</label>
       <input id="todoTitle" type="text" placeholder="Learn React..." />
-      <button>Add To-Do!</button>
+      <button>Add Todo</button>
     </form>
   );
 }
