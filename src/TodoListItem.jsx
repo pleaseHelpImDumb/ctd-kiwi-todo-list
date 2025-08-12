@@ -1,5 +1,5 @@
-function TodoListItem(props) {
-  return <li>{props.title}</li>;
+function TodoListItem({ todo }) {
+  return <li>{todo.title}</li>;
 }
 
 export default TodoListItem;
