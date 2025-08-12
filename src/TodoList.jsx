@@ -17,7 +17,7 @@ function TodoList({ todoList, onCompleteTodo }) {
               key={todo.id}
               todo={todo}
               onCompleteTodo={onCompleteTodo}
-            ></TodoListItem>
+            />
           ))}
         </ul>
       )}
