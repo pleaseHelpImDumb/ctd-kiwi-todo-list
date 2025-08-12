@@ -1,13 +1,47 @@
-function TodoListItem({ todo, onCompleteTodo }) {
-  return (
+import "../../shared/TextInputWithLabel.jsx";
+import { useState } from "react";
+import TextInputWithLabel from "../../shared/TextInputWithLabel.jsx";
+
+function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [workingTitle, setWorkingTitle] = useState(todo.title);
+
+  const handleCancel = () => {
+    setWorkingTitle(todo.title);
+    setIsEditing(false);
+  };
+
+  const handleEdit = (event) => {
+    setWorkingTitle(event.target.value);
+  };
+
+  function handleUpdate(event) {
+    if (!isEditing) return;
+    event.preventDefault();
+    onUpdateTodo({ ...todo, title: workingTitle });
+    setWorkingTitle(todo.title);
+    setIsEditing(false);
+  }
+
+  return isEditing ? (
+    <>
+      <TextInputWithLabel value={workingTitle} onChange={handleEdit} />
+      <button type="button" onClick={handleCancel}>
+        Cancel
+      </button>
+      <button type="button" onClick={handleUpdate}>
+        Update
+      </button>
+    </>
+  ) : (
     <li>
-      <form action="">
+      <form onSubmit={handleUpdate}>
         <input
           type="checkbox"
           checked={todo.isCompleted}
           onChange={() => onCompleteTodo(todo.id)}
         />
-        {todo.title}
+        <span onClick={() => setIsEditing(true)}>{todo.title}</span>
       </form>
     </li>
   );
