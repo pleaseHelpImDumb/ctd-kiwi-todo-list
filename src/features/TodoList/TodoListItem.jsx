@@ -23,25 +23,32 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
     setIsEditing(false);
   }
 
-  return isEditing ? (
-    <>
-      <TextInputWithLabel value={workingTitle} onChange={handleEdit} />
-      <button type="button" onClick={handleCancel}>
-        Cancel
-      </button>
-      <button type="button" onClick={handleUpdate}>
-        Update
-      </button>
-    </>
-  ) : (
+  return (
     <li>
       <form onSubmit={handleUpdate}>
-        <input
-          type="checkbox"
-          checked={todo.isCompleted}
-          onChange={() => onCompleteTodo(todo.id)}
-        />
-        <span onClick={() => setIsEditing(true)}>{todo.title}</span>
+        {isEditing ? (
+          <>
+            <TextInputWithLabel value={workingTitle} onChange={handleEdit} />
+            <button type="button" onClick={handleCancel}>
+              Cancel
+            </button>
+            <button type="button" onClick={handleUpdate}>
+              Update
+            </button>
+          </>
+        ) : (
+          <>
+            <label>
+              <input
+                type="checkbox"
+                id={`checkbox${todo.id}`}
+                checked={todo.isCompleted}
+                onChange={() => onCompleteTodo(todo.id)}
+              />
+            </label>
+            <span onClick={() => setIsEditing(true)}>{todo.title}</span>
+          </>
+        )}
       </form>
     </li>
   );
