@@ -45,6 +45,22 @@ function App() {
     fetchTodos();
   }, []);
 
+  async function apiCall(method, bodyData) {
+    const options = {
+      method: method,
+      headers: { Authorization: token, "Content-Type": "application/json" },
+      body: JSON.stringify(bodyData),
+    };
+
+    const resp = await fetch(url, options);
+
+    if (!resp.ok) {
+      throw new Error(resp.status);
+    }
+
+    return await resp;
+  }
+
   async function addTodo(newTodo) {
     const payload = {
       records: [
@@ -52,21 +68,11 @@ function App() {
       ],
     };
     console.log(JSON.stringify(payload));
-    const options = {
-      method: "POST",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    };
 
     try {
       setIsSaving(true);
-      const resp = await fetch(url, options);
-      if (!resp.ok) {
-        throw new Error(resp.status);
-      }
+      const resp = await apiCall("POST", payload);
+
       const { records } = await resp.json();
 
       const savedTodo = {
@@ -99,20 +105,8 @@ function App() {
       ],
     };
 
-    const options = {
-      method: "PATCH",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    };
-    console.log(JSON.stringify(payload));
     try {
-      const resp = await fetch(url, options);
-      if (!resp.ok) {
-        throw new Error(resp.status);
-      }
+      const resp = await apiCall("PATCH", payload);
     } catch (error) {
       console.log(error);
       setErrorMessage(`${error.message}. Reverting todo...`);
@@ -152,21 +146,8 @@ function App() {
       ],
     };
 
-    console.log(JSON.stringify(payload));
-    const options = {
-      method: "PATCH",
-      headers: {
-        Authorization: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    };
-
     try {
-      const resp = await fetch(url, options);
-      if (!resp.ok) {
-        throw new Error(resp.status);
-      }
+      const resp = await apiCall("PATCH", payload);
     } catch (error) {
       console.log(error);
       setErrorMessage(`${error.message}. Reverting todo...`);
