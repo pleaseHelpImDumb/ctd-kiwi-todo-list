@@ -1,23 +1,43 @@
 import "./App.css";
 import TodoList from "./features/TodoList/TodoList.jsx";
 import TodoForm from "./features/TodoList/TodoForm.jsx";
+import TodosViewForm from "./features/TodoList/TodosViewForm.jsx";
 import { useEffect, useState } from "react";
 
+const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
+const token = `Bearer ${import.meta.env.VITE_PAT}`;
+
+
+function encodeUrl(sortField, sortDirection, queryString){
+  let searchQuery = "";
+  let sortQuery = `sort[0][field]=${sortField}&sort[0][direction]=${sortDirection}`;
+  
+  if(queryString){
+    searchQuery = `&filterByFormula=SEARCH("${queryString}",+title)`;
+  }
+  return encodeURI(`${url}?${sortQuery}${searchQuery}`);
+}
+
 function App() {
+  
+  //Main List
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
-  const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${import.meta.env.VITE_TABLE_NAME}`;
-  const token = `Bearer ${import.meta.env.VITE_PAT}`;
+  //Sorting and Filtering
+  const [sortField, setSortField] = useState("createdTime");
+  const [sortDirection, setSortDirection] = useState("desc");
+  const [queryString, setQueryString] = useState("");
 
   useEffect(() => {
     const fetchTodos = async () => {
       setIsLoading(true);
       const options = { method: "GET", headers: { Authorization: token } };
+      console.log(options);
       try {
-        const resp = await fetch(url, options);
+        const resp = await fetch(encodeUrl(sortField, sortDirection, queryString), options);
         if (!resp.ok) {
           throw new Error(resp.status);
         }
@@ -43,7 +63,7 @@ function App() {
       }
     };
     fetchTodos();
-  }, []);
+  }, [sortDirection, sortField, queryString]);
 
   async function apiCall(method, bodyData) {
     const options = {
@@ -52,7 +72,7 @@ function App() {
       body: JSON.stringify(bodyData),
     };
 
-    const resp = await fetch(url, options);
+    const resp = await fetch(encodeUrl(sortField, sortDirection, queryString), options);
 
     if (!resp.ok) {
       throw new Error(resp.status);
@@ -190,6 +210,12 @@ function App() {
           <button onClick={() => setErrorMessage("")}>Dismiss</button>
         </div>
       )}
+      <hr />
+      <TodosViewForm
+        sortDirection={sortDirection} setSortDirection={setSortDirection} 
+        sortField={sortField} setSortField={setSortField}
+        queryString={queryString} setQueryString={setQueryString}  
+      />
     </div>
   );
 }
