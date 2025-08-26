@@ -8,10 +8,11 @@ function TodoList({ todoList, onCompleteTodo, onUpdateTodo, isLoading }) {
 
   return (
     <>
-      {filteredTodoList.length === 0 ? (
-        <p>Add todo above to get started</p>
-      ) : isLoading ? (
+      {
+        isLoading ? (
         <p>Todo list loading...</p>
+      ) : filteredTodoList.length === 0 ? (
+        <p>Add todo above to get started</p>
       ) : (
         <ul>
           {filteredTodoList.map((todo) => (
