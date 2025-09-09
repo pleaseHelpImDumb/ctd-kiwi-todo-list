@@ -1,4 +1,5 @@
 import "../../shared/TextInputWithLabel.jsx";
+import "./TodoListItem.css"
 import { useEffect, useState } from "react";
 import TextInputWithLabel from "../../shared/TextInputWithLabel.jsx";
 
@@ -42,7 +43,7 @@ function TodoListItem({ todo, onCompleteTodo, onUpdateTodo }) {
           </>
         ) : (
           <>
-            <label>
+            <label className="checkbox">
               <input
                 type="checkbox"
                 id={`checkbox${todo.id}`}

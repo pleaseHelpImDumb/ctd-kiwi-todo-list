@@ -8,7 +8,6 @@ const url = `https://api.airtable.com/v0/${import.meta.env.VITE_BASE_ID}/${impor
 const token = `Bearer ${import.meta.env.VITE_PAT}`;
 
 function App() {
-  
   //Main List
   const [todoList, setTodoList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +25,10 @@ function App() {
       const options = { method: "GET", headers: { Authorization: token } };
       console.log(options);
       try {
-        const resp = await fetch(encodeUrl(sortField, sortDirection, queryString), options);
+        const resp = await fetch(
+          encodeUrl(sortField, sortDirection, queryString),
+          options
+        );
         if (!resp.ok) {
           throw new Error(resp.status);
         }
@@ -54,15 +56,15 @@ function App() {
     fetchTodos();
   }, [sortDirection, sortField, queryString]);
 
-  const encodeUrl = useCallback(()=>{
+  const encodeUrl = useCallback(() => {
     let searchQuery = "";
     let sortQuery = `sort[0][field]=${sortField}&sort[0][direction]=${sortDirection}`;
-    
-    if(queryString){
+
+    if (queryString) {
       searchQuery = `&filterByFormula=SEARCH("${queryString}",+title)`;
     }
     return encodeURI(`${url}?${sortQuery}${searchQuery}`);
-  },[sortField, sortDirection, queryString]);
+  }, [sortField, sortDirection, queryString]);
 
   async function apiCall(method, bodyData) {
     const options = {
@@ -71,7 +73,10 @@ function App() {
       body: JSON.stringify(bodyData),
     };
 
-    const resp = await fetch(encodeUrl(sortField, sortDirection, queryString), options);
+    const resp = await fetch(
+      encodeUrl(sortField, sortDirection, queryString),
+      options
+    );
 
     if (!resp.ok) {
       throw new Error(resp.status);
@@ -194,7 +199,10 @@ function App() {
 
   return (
     <div>
-      <h1>Todo List</h1>
+      <div class="title-container">
+        <img src="/public/testIcon.png" width="100px" alt="Title Logo" />
+        <h1>Todo List</h1>
+      </div>
       <TodoForm onAddTodo={addTodo} isSaving={isSaving} />
       <TodoList
         todoList={todoList}
@@ -203,17 +211,26 @@ function App() {
         onUpdateTodo={updateTodo}
       />
       {errorMessage && (
-        <div>
+        <div id="error">
           <hr />
+          <img
+            src="/src/assets/error-icon.png"
+            width="50px"
+            height="50px"
+            alt="Error"
+          />
           <p>{errorMessage}</p>
           <button onClick={() => setErrorMessage("")}>Dismiss</button>
         </div>
       )}
       <hr />
       <TodosViewForm
-        sortDirection={sortDirection} setSortDirection={setSortDirection} 
-        sortField={sortField} setSortField={setSortField}
-        queryString={queryString} setQueryString={setQueryString}  
+        sortDirection={sortDirection}
+        setSortDirection={setSortDirection}
+        sortField={sortField}
+        setSortField={setSortField}
+        queryString={queryString}
+        setQueryString={setQueryString}
       />
     </div>
   );
