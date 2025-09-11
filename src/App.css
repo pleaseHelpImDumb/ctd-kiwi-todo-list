@@ -1,0 +1,84 @@
+/*
+  Color Palette
+  -------------
+  See at:
+  https://coolors.co/573d1c-4c956c-e3f09b-cb904d-212922
+  -------------
+  Primary: #573d1c
+  Secondary: #4c956c
+  Accent: #e3f09b
+  Highlight: #cb904d
+  Dark: #212922
+*/
+
+body{
+    background-color: #e3f09b;
+    font-family: 'Story Script', cursive;
+    font-size: larger;
+    color: #212922;
+    text-align: center;
+}
+
+h1{
+    font-weight: 800;
+    font-family: 'Montserrat', sans-serif;   
+}
+
+input{
+    padding: 10px;
+    margin: 10px;
+    
+    border-radius: 5px;
+    border-color: #212922;
+    border-width: 3px;
+}
+hr{
+    color:#212922;
+    border-style:dashed;
+    border-width: 2px;
+}
+button{
+    background-color: #cb904d;
+    color: #212922;
+    font-weight: 700;
+    margin: 10px;
+    padding: 10px;
+
+
+    font-family: 'Montserrat', sans-serif;   
+
+    border-radius: 5px;
+    border-color: #212922;
+    border-width: 3px;
+}
+div{
+    text-align: center;
+}
+
+#error hr{
+    border-style: solid;
+    color: red;
+}
+#error, #error button{
+    border-radius: 5px;
+    border-style: solid;
+    border-color: red;
+    
+    color: rgb(255, 0, 0);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    background-color: rgb(255, 160, 160);
+    
+    padding: 5px;
+    border-width: 5px;
+
+}
+
+#error button:hover{
+    background-color: rgb(255, 128, 128);
+}
+
+.title-container{
+    display:flex;
+    justify-content: center;
+}
